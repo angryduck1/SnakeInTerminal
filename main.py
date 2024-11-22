@@ -1,3 +1,4 @@
+from setup import *
 import os
 import keyboard
 import time
@@ -20,15 +21,10 @@ print(colorama.Fore.GREEN +"\tSnakeInTerminal!\n" + colorama.Style.RESET_ALL + c
 ⠀⠀⠀⠀⠙⢿⣿⣿⣿⣶⣦⣤⣀⣀⡀⠀⠀⠀⣀⣠⣴⣾⣿⣿⣿⡿⠃⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠈⠙⠻⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠋⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠙⠛⠛⠛⠛⠛⠛⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀""" + colorama.Style.RESET_ALL)
+print(colorama.Fore.RED + """\t 
+      Create by angryduck001""" + colorama.Style.RESET_ALL)
 
 time.sleep(2)
-weight, height = 25, 15  # Длина должна быть больше чем ширина
-
-food = [random.randint(0, weight - 1), random.randint(0, height - 1)]
-head = [0, 5]
-body = [[0, 4], [0, 3], [0, 2], [0, 1], [0, 0]]
-max_snake = len(body)
-input_controller = ["s"]
 
 def draw():
     os.system("cls" if os.name == "nt" else "clear")
@@ -49,6 +45,7 @@ def draw():
 while True:
     draw()
     print(("0" * weight) + ("0"))
+    print(f"\tPoints: {points}")
     body[0] = head.copy()
     
     for i in reversed(range(max_snake)):  
@@ -86,6 +83,7 @@ while True:
             body = [[0, 4], [0, 3], [0, 2], [0, 1], [0, 0]]
             max_snake = len(body)
             input_controller = ["s"]
+            points = 0
         else:
             pass
 
@@ -95,6 +93,14 @@ while True:
             body = [[0, 4], [0, 3], [0, 2], [0, 1], [0, 0]]
             max_snake = len(body)
             input_controller = ["s"]
+            points = 0
+        elif body[1] == body[3]:
+            food = [random.randint(0, weight - 1), random.randint(0, height - 1)]
+            head = [0, 5]
+            body = [[0, 4], [0, 3], [0, 2], [0, 1], [0, 0]]
+            max_snake = len(body)
+            input_controller = ["s"]
+            points = 0
         else:
             pass
 
@@ -103,6 +109,7 @@ while True:
         if (head[0] == food[0] and head[1] == food[1]):
             food = [random.randint(0, weight - 1), random.randint(0, height - 1)]
             max_snake += 1
+            points += 1
             body.append(head.copy())
 
             break
